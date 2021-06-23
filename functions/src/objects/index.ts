@@ -194,8 +194,8 @@ export const addReservation = function (body: {
 export const addItem = function (body: {
     name: string,
     category: {
-        name:string,
-        icon:string
+        name: string,
+        icon: string
     },
     branchID: string,
     ratings: number,
@@ -210,7 +210,7 @@ export const addItem = function (body: {
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         name: body.name,
         category: body.category,
-        categoryName:body.category.name,
+        categoryName: body.category.name,
         branchID: body.branchID,
         ratings: body.ratings,
         availability: body.availability,
@@ -248,8 +248,9 @@ export const addCombo = function (body: {
     description: string,
     rating: number,
     price: number,
+    comboImage: string
 }, keywords: Array<string>) {
-    return {
+    let data:any =  {
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         branchID: body.branchID,
         name: body.name,
@@ -260,6 +261,10 @@ export const addCombo = function (body: {
         keywords,
         status: 'ACTIVE'
     }
+    if (body.comboImage !== undefined){
+        data.comboImage = body.comboImage;
+    }
+    return data
 };
 
 export const addOnlineOrder = function (body: {
@@ -315,7 +320,7 @@ export const addSupplier = function (body: {
     fullName: string,
     contactNumber: string,
     email: string,
-    rawItems: Array<{id:string,name:string}>,
+    rawItems: Array<{ id: string, name: string }>,
     method: 'CASH' | 'BANKING',
     branchID: string,
     accountDetails?: {

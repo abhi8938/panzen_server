@@ -545,7 +545,7 @@ export const getItems = functions.https.onRequest(async (request, response) => {
                 if (category !== null) {
                     items.docs.map(element => {
                         if (element.data().categoryName === category) {
-                            return categoryItems.push({id:element.id,data:element.data()});
+                            return categoryItems.push({id: element.id, data: element.data()});
                         }
                         return
                     })
@@ -1432,33 +1432,7 @@ export const searchMenuItems = functions.https.onRequest((request, response) => 
                 return response.status(200).send([]);
             }
             const list: Array<any> = [];
-            data.docs.map(ele => {
-                let isPresent = false
-                list.map(elem => {
-                    if (ele.data().categoryName === elem.category.name) {
-                        return isPresent = true
-                    }
-                    return
-                })
-
-                let category = !isPresent ? ele.data().categoryName : null;
-                let categoryItems: Array<any> = [];
-
-                if (category !== null) {
-                    data.docs.map(element => {
-                        if (element.data().categoryName === category) {
-                            return categoryItems.push({id:element.id,data:element.data()});
-                        }
-                        return
-                    })
-                    return list.push({
-                        category: {name: ele.data().category.name, icon: ele.data().category.icon},
-                        items: categoryItems
-                    })
-                }
-                return
-            })
-
+            data.docs.map(el => list.push({id: el.id, data: el.data()}));
             return response.status(200).send(list);
         }
         return response.status(201).send(decoded);
